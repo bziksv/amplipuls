@@ -11,8 +11,9 @@ Environment=NODE_ENV=production
 Environment=HOST=127.0.0.1
 Environment=PORT=3000
 # Если Node установлен через nvm — раскомментируйте ExecStart ниже и закомментируйте прямой вызов node.
-ExecStart=/usr/bin/node dist/server/entry.mjs
-# ExecStart=/bin/bash -lc 'source /var/www/amplipuls_su_usr/.nvm/nvm.sh && nvm use 22 && exec node dist/server/entry.mjs'
+ExecStart=/var/www/amplipuls_su_usr/data/.nvm/versions/node/v22.23.2/bin/node dist/server/entry.mjs
+# Путь к node после: su - amplipuls_su_usr -c 'source ~/.nvm/nvm.sh && which node'
+# ExecStart=/bin/bash -lc 'source /var/www/amplipuls_su_usr/data/.nvm/nvm.sh && nvm use 22 && exec node dist/server/entry.mjs'
 Restart=on-failure
 RestartSec=5
 

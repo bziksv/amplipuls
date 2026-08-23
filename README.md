@@ -20,9 +20,13 @@ cd amplipuls
 | Путь на сервере | `/var/www/amplipuls_su_usr/data/www/amplipuls.su` |
 
 ```bash
-ssh user@217.28.220.186
+ssh vilmed   # или ssh root@217.28.220.186
 cd /var/www/amplipuls_su_usr/data/www/amplipuls.su
 ```
+
+Бэкап Bitrix (до миграции): `/var/www/amplipuls_su_usr/data/www/amplipuls.su.bitrix-backup-20250823`
+
+Nginx проксирует на Node `127.0.0.1:3000` (было Apache `:81`). Бэкап конфига: `amplipuls.su.conf.bak-astro`.
 
 ### Деплой
 
