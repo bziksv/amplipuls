@@ -26,15 +26,47 @@ cd /var/www/amplipuls_su_usr/data/www/amplipuls.su
 
 ### Деплой
 
+**Повторный деплой** (после настройки):
+
 ```bash
-# на сервере
 cd /var/www/amplipuls_su_usr/data/www/amplipuls.su
-git pull origin main
-npm ci
-npm run build
-HOST=0.0.0.0 PORT=4321 npm run start
-# или перезапустить systemd/pm2-сервис
+bash scripts/deploy.sh
 ```
+
+**Первичная настройка на сервере**
+
+1. Node 22+ (`nvm install 22` под пользователем `amplipuls_su_usr`).
+2. Клонировать репозиторий в каталог сайта:
+
+```bash
+cd /var/www/amplipuls_su_usr/data/www
+# если в amplipuls.su ещё лежит Bitrix — сделайте бэкап и очистите каталог
+git clone https://github.com/bziksv/amplipuls.git amplipuls.su
+cd amplipuls.su
+npm ci && npm run build
+```
+
+3. Systemd-сервис:
+
+```bash
+sudo cp deploy/amplipuls.service /etc/systemd/system/amplipuls.service
+# при необходимости поправьте путь к node в unit-файле
+sudo systemctl daemon-reload
+sudo systemctl enable --now amplipuls
+sudo systemctl status amplipuls
+```
+
+4. Nginx — проксировать `amplipuls.su` на `127.0.0.1:3000` (см. `deploy/nginx-amplipuls.conf`).
+   В панели ISPmanager: отключить PHP/Bitrix для домена, добавить proxy location.
+
+5. Проверка:
+
+```bash
+curl -I http://127.0.0.1:3000/
+curl -I https://amplipuls.su/docs/obrabotka-personalnyh-dannyh/
+```
+
+Заявки с форм пишутся в `.submissions/` (каталог создаётся автоматически, в git не попадает).
 
 ## Юридические страницы
 
