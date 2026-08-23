@@ -1,0 +1,15 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import content from '../../data/legal/personal-data-processing.html?raw';
+import { legalSite } from '../../data/legal/site';
+
+const title = 'Политика обработки персональных данных';
+---
+
+<LegalLayout title={`${title} — Амплипульс`} description={`${title} ООО «НПО «ШИНС»», сайт amplipuls.su`}>
+  <article class="legal-page">
+    <a class="legal-page__back" href="/">← На главную</a>
+    <h1 class="legal-page__title">{title}</h1>
+    <div class="legal-doc legal-doc--policy" set:html={content} />
+  </article>
+</LegalLayout>
