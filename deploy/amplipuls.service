@@ -10,6 +10,7 @@ WorkingDirectory=/var/www/amplipuls_su_usr/data/www/amplipuls.su
 Environment=NODE_ENV=production
 Environment=HOST=127.0.0.1
 Environment=PORT=3000
+EnvironmentFile=-/var/www/amplipuls_su_usr/data/www/amplipuls.su/.env
 # Если Node установлен через nvm — раскомментируйте ExecStart ниже и закомментируйте прямой вызов node.
 ExecStart=/var/www/amplipuls_su_usr/data/.nvm/versions/node/v22.23.2/bin/node dist/server/entry.mjs
 # Путь к node после: su - amplipuls_su_usr -c 'source ~/.nvm/nvm.sh && which node'

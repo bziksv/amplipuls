@@ -21,6 +21,9 @@ pnpm-debug.log*
 # form submissions (local dev)
 .submissions/
 
+# generated HTML for PNG export
+public/legal-export/
+
 # IDE
 .idea/
 .vscode/

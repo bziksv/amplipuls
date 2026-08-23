@@ -1,30 +1,30 @@
+/** Реквизиты из politics-amplipuls.png / cookies-amplipuls.png / rules-recomendation-amplipuls.png */
 export const legalSite = {
-  operatorName: 'ООО «НПО «ШИНС»»',
-  operatorShort: 'ООО «НПО «ШИНС»»',
-  operatorLegalForm: 'Общество',
-  inn: '3666118750',
-  ogrn: '1173669006559',
+  operatorName: 'ООО «АЛЬМАМЕД»',
+  operatorShort: 'ООО «АЛЬМАМЕД»',
+  inn: '3663147243',
+  ogrn: '1153661007406',
   site: 'https://amplipuls.su/',
   siteHost: 'amplipuls.su',
   email: 'sale@amplipuls.su',
   phone: '+7 (499) 322-98-09',
+  phoneSecondary: '+7 (473) 229-96-07',
   phoneTel: '+74993229809',
+  phoneSecondaryTel: '+74732299607',
   addressLegal:
-    '394033, Россия, Воронежская обл., г. Воронеж, ул. Московский проспект, 19, помещ. III, комн. 2',
-  addressStore: 'г. Воронеж, ул. Московский пр-кт, д. 19, помещ. 1/46',
+    '394026, Россия, Воронежская обл., г. Воронеж, Московский пр-кт, д. 19, помещ. 1/46',
+  addressStore:
+    '394026, Россия, Воронежская обл., г. Воронеж, Московский пр-кт, д. 19, помещ. 1/46',
   urls: {
-    personalData: '/docs/obrabotka-personalnyh-dannyh/',
-    consent: '/docs/soglasie-pdn-amplipuls/',
-    cookie: '/docs/politika-fajlov-cookie/',
-    recommendation: '/docs/pravila-rekomendatelnyh-tehnologij/',
+    personalData: '/upload/politics-amplipuls.png',
+    consent: '/upload/soglasie-pdn-amplipuls.png',
+    cookie: '/upload/cookies-amplipuls.png',
+    recommendation: '/upload/rules-recomendation-amplipuls.png',
   },
 } as const;
 
-export const legalThirdParties = [
-  'ООО «Яндекс» (ИНН 7736207543) — <a href="https://yandex.ru/" target="_blank" rel="noopener">Яндекс.Метрика</a>, сервисы <a href="https://yandex.ru/maps/" target="_blank" rel="noopener">Яндекс.Карт</a>;',
-  'партнёрам по доставке (курьерские и транспортные компании: СДЭК, Деловые Линии, ПЭК, Boxberry и др.);',
-  'платёжным операторам (банки, процессинговые центры);',
-  'IT-подрядчикам для технической поддержки;',
-  'государственным органам по законным требованиям;',
-  'иным лицам в случаях, предусмотренных законодательством РФ или с согласия Субъекта;',
-];
+/** Сторонние сервисы, реально используемые на amplipuls.su (Layout.astro, body.html). */
+export const legalThirdPartiesOnSite = [
+  'mc.yandex.ru / mc.yandex.com — Яндекс.Метрика',
+  'api-maps.yandex.ru / core-renderer-tiles.maps.yandex.net — Яндекс.Карты',
+] as const;

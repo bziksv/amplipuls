@@ -3,10 +3,15 @@
  */
 (function () {
   const formCache = {};
+  const FORM_ASSET_VERSION = '20250823';
+  const legalDocs = {
+    politics: '/upload/politics-amplipuls.png',
+    agreement: '/upload/soglasie-pdn-amplipuls.png',
+  };
 
   async function loadForm(code) {
     if (formCache[code]) return formCache[code];
-    const res = await fetch('/data/forms/' + code + '.json');
+    const res = await fetch(`/data/forms/${code}.json?v=${FORM_ASSET_VERSION}`, { cache: 'no-store' });
     if (!res.ok) throw new Error('Form not found: ' + code);
     formCache[code] = await res.json();
     return formCache[code];
@@ -18,6 +23,14 @@
     if (component === 'form' && action === 'getModal') {
       return loadForm(post.formCode).then((form) => {
         let body = form.body;
+        if (post.formCode && !body.includes('name="FORM_CODE"')) {
+          body = body.replace(
+            '<div class="form-block">',
+            '<input type="hidden" name="FORM_CODE" value="' +
+              String(post.formCode).replace(/"/g, '&quot;') +
+              '"><div class="form-block">',
+          );
+        }
         if (post.subject) {
           body = body.replace(
             'name="SOURCE" data-code="SOURCE" value=""',
@@ -37,21 +50,13 @@
     }
 
     if (component === 'form' && action === 'getPolitics') {
-      return Promise.resolve({
-        data: {
-          title: 'Политика обработки персональных данных',
-          body: '<p style="margin:0 0 12px"><a href="/docs/obrabotka-personalnyh-dannyh/" target="_blank" rel="noopener">Открыть политику в новой вкладке</a></p><iframe src="/docs/obrabotka-personalnyh-dannyh/" title="Политика обработки персональных данных" style="width:100%;height:65vh;border:0;border-radius:4px"></iframe>',
-        },
-      });
+      window.open(legalDocs.politics, '_blank', 'noopener');
+      return Promise.reject({ errors: [{ message: '' }] });
     }
 
     if (component === 'form' && action === 'getAgreement') {
-      return Promise.resolve({
-        data: {
-          title: 'Согласие на обработку персональных данных',
-          body: '<p style="margin:0 0 12px"><a href="/docs/soglasie-pdn-amplipuls/" target="_blank" rel="noopener">Открыть согласие в новой вкладке</a></p><iframe src="/docs/soglasie-pdn-amplipuls/" title="Согласие на обработку персональных данных" style="width:100%;height:65vh;border:0;border-radius:4px"></iframe>',
-        },
-      });
+      window.open(legalDocs.agreement, '_blank', 'noopener');
+      return Promise.reject({ errors: [{ message: '' }] });
     }
 
     if (component === 'form' && action === 'submit') {
@@ -77,4 +82,18 @@
 
     return Promise.reject({ errors: [{ message: 'Unknown action' }] });
   };
+
+  $(function () {
+    $(document).off('click', '.js-form-politics');
+    $(document).on('click', '.js-form-politics', function (event) {
+      event.preventDefault();
+      window.open(legalDocs.politics, '_blank', 'noopener');
+    });
+
+    $(document).off('click', '.js-form-agreement');
+    $(document).on('click', '.js-form-agreement', function (event) {
+      event.preventDefault();
+      window.open(legalDocs.agreement, '_blank', 'noopener');
+    });
+  });
 })();
